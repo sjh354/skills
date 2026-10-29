@@ -11,8 +11,8 @@ description: 상사·팀에 맥락만 전달하는 간단한 보고용 슬라이
 1. **범위 확정**: 요청이 가리키는 주제만 다룬다. 요청 밖 내용(변경 이력·로드맵 등)은 넣지 않는다. 주제를 못 정하겠으면 그때만 묻는다.
 2. **소스 읽기**: 주제에 필요한 코드·문서만 읽는다.
 3. **틀 보고**: 만들기 전에 채팅에 전체 틀을 적는다 — 전달할 핵심 한 줄 + 슬라이드별 `제목 · 들어갈 내용 · 시각화 종류`. 표지·목차·장수 제한은 없다. 적은 뒤 바로 이어서 만든다.
-4. **작성**: `template.html` 복사해 틀대로 슬라이드를 채운다. 중간 파일(html·svg·차트 json·미리보기 png)은 모두 `/tmp` 쪽 작업 폴더(세션 scratchpad 가 있으면 거기)에 둔다. pwd 에 흩뿌리지 않는다.
-5. **빌드**: 사용자의 pwd 에서 `bash <skill>/scripts/build.sh /tmp쪽/deck.html` → 작업 폴더에 `deck.pdf` + `deck-preview-N.png`, 통과하면 `deck.pdf` 가 pwd 로 복사된다(최종 산출물은 이 PDF 하나). 넘침(`data-overflow`)·쪽수 불일치면 실패하니 줄이거나 쪼갠다.
+4. **작성**: `template.html` 복사해 틀대로 슬라이드를 채운다. 중간 파일(html·svg·차트 json·미리보기 png)은 모두 작업 폴더 `~/.tmp/brief/`(없으면 `mkdir -p`)에 둔다. snap 판 Chromium 은 `/tmp`(세션 scratchpad 포함)에 PDF 를 쓰지 못하므로 `/tmp` 는 쓰지 않는다. pwd 에 흩뿌리지 않는다.
+5. **빌드**: 사용자의 pwd 에서 `bash <skill>/scripts/build.sh ~/.tmp/brief/deck.html` → 작업 폴더에 `deck.pdf` + `deck-preview-N.png`, 통과하면 `deck.pdf` 가 pwd 로 복사된다(최종 산출물은 이 PDF 하나). 넘침(`data-overflow`)·쪽수 불일치면 실패하니 줄이거나 쪼갠다.
 6. **보고**: pwd 로 옮겨진 PDF 경로(`final:` 줄)와 함께 채팅에 알린다. 측정 조건·출처 한계·주의점은 슬라이드가 아니라 채팅에만 쓴다. 그림 평가는 사용자가 한다.
 
 ## 글

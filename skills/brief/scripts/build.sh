@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 사용: build.sh deck.html (작업 폴더는 /tmp 쪽) -> deck.pdf + deck-preview-N.png, 넘침·쪽수 검사. 통과하면 PDF 를 현재 pwd 로 복사
+# 사용: build.sh deck.html (작업 폴더는 ~/.tmp/brief — snap Chromium 은 /tmp 에 쓰지 못함) -> deck.pdf + deck-preview-N.png, 넘침·쪽수 검사. 통과하면 PDF 를 현재 pwd 로 복사
 set -euo pipefail
 f=$(realpath "$1"); out="${f%.html}"
 skill=$(dirname "$(dirname "$(realpath "$0")")")
