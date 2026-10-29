@@ -3,7 +3,7 @@
 import sys
 from html import escape
 
-HEADERS = ("diff ", "index ", "--- a/", "+++ b/", "--- /dev", "+++ /dev")
+HEADERS = ("diff ", "index ", "--- a/", "+++ b/", "--- /dev", "+++ /dev", "Binary files ", "GIT binary patch")
 rows = []
 for ln in sys.stdin.read().splitlines():
     if ln.startswith(HEADERS):
