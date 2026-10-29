@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>DECK</title>
+<style>
+@font-face{font-family:"Pretendard";src:url("file://{{SKILL}}/fonts/PretendardVariable.woff2") format("woff2");font-weight:100 900}
+:root{--ink:#111;--muted:#666;--grid:#ddd;--c1:#2563a8;--c2:#d97706;--c3:#2f7d4f;--c4:#c0392b;--c5:#7c4dbb;--c6:#0e8a8a;--add:#e3f4e8;--del:#fbe4e1}
+@page{size:1280px 720px;margin:0}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Pretendard","Noto Sans CJK KR",sans-serif;word-break:keep-all;text-wrap:pretty}
+.slide{width:1280px;height:720px;overflow:hidden;padding:48px 72px;page-break-after:always;display:flex;flex-direction:column}
+h1{font-size:40px;margin:0 0 28px;font-weight:700;letter-spacing:-.01em}
+.body{flex:1;min-height:0;display:grid;gap:48px;align-items:center}
+.split{grid-template-columns:1fr 1fr}
+.split.wide-r{grid-template-columns:5fr 7fr}
+.full{grid-template-columns:1fr}
+.body>div{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.body svg,.body img{width:100%;height:100%;object-fit:contain}
+.txt{font-size:30px;line-height:1.55;font-weight:500;text-wrap:balance}
+.txt p{margin:0 0 .5em}
+.txt .dot::before{content:"· "}
+.txt .sub{color:var(--muted);font-size:26px}
+pre.diff{font:18px/1.5 "DejaVu Sans Mono",monospace;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+pre.diff span{display:block;padding:2px 12px;word-break:break-all}
+pre.diff .gap{background:none;height:.8em;padding:0}
+.imgs{display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-auto-rows:1fr;gap:12px;height:100%}
+.imgs figure{margin:0;min-height:0;display:flex;flex-direction:column}
+.imgs img{height:0;flex:1;min-height:0;object-fit:contain}
+.imgs figcaption{font-size:18px;color:var(--muted);text-align:center;margin-top:4px}
+.tbl{border-collapse:collapse;width:100%;font-size:var(--fs,24px)}
+.tbl th.n{text-align:right}
+.tbl th{text-align:left;font-weight:700;padding:8px 14px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.tbl td{padding:8px 14px}
+.tbl tbody tr:last-child td{border-bottom:2px solid var(--ink)}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+.add{background:var(--add)}.del{background:var(--del)}
+</style></head><body>
+
+<!-- 좌 텍스트 / 우 시각화. 본문은 줄글·목록·기호 혼합 자유. 줄은 짧게, 문장 안에서도 → ⇒ · 로 압축 -->
+<section class="slide"><h1>제목</h1>
+<div class="body split">
+<div class="txt"><p class="dot">핵심 한 줄</p><p class="dot">A → B 로 변경<br><span class="sub">⇒ 효과 수치</span></p></div>
+<div><!-- chart.py 출력 SVG --></div>
+</div></section>
+
+<!-- 꽉 찬 시각화 -->
+<section class="slide"><h1>제목</h1>
+<div class="body full"><div><!-- SVG 또는 <img> --></div></div></section>
+
+<!-- 변경 전후: git diff -U0 ... | scripts/diff.py 출력 (파일명 없음, 빨강/초록 블록) -->
+<section class="slide"><h1>제목</h1>
+<div class="body split">
+<div class="txt"><p class="dot">변경 요약</p><p>⇒ 효과</p></div>
+<div><!-- diff.py 출력 --></div>
+</div></section>
+
+<!-- 이미지: scripts/imgs.py COLS 경로|캡션 ... 출력 (1장이면 <img> 직접). 표: scripts/table.py < csv. 둘 다 <div> 안에 넣고 split 으로 조합 -->
+
+<!-- 흐름도: 박스 160×70, 간격 40, 색은 var(--c*)만 -->
+<section class="slide"><h1>제목</h1>
+<div class="body full"><div><svg viewBox="0 0 760 120" style="font-size:20px;fill:var(--ink)">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--ink)"/></marker></defs>
+<rect x="20" y="30" width="200" height="60" rx="6" style="fill:#fff;stroke:var(--c1);stroke-width:2"/><text x="120" y="67" text-anchor="middle">입력</text>
+<line x1="220" y1="60" x2="276" y2="60" style="stroke:var(--ink);stroke-width:2" marker-end="url(#ah)"/>
+<rect x="280" y="30" width="200" height="60" rx="6" style="fill:#fff;stroke:var(--c2);stroke-width:2"/><text x="380" y="67" text-anchor="middle">처리</text>
+<line x1="480" y1="60" x2="536" y2="60" style="stroke:var(--ink);stroke-width:2" marker-end="url(#ah)"/>
+<rect x="540" y="30" width="200" height="60" rx="6" style="fill:#fff;stroke:var(--c3);stroke-width:2"/><text x="640" y="67" text-anchor="middle">출력</text>
+</svg></div></div></section>
+
+<script>document.querySelectorAll('.dot').forEach(p=>/^[→⇒↑↓]/.test(p.textContent.trim())&&p.classList.remove('dot'))</script>
+<script>addEventListener('load',()=>document.querySelectorAll('.imgs figure').forEach(f=>{const i=f.querySelector('img'),c=f.querySelector('figcaption'),W=f.clientWidth,H=f.clientHeight-(c?c.offsetHeight+4:0),r=i.naturalWidth/i.naturalHeight;let w=W,h=W/r;if(h>H){h=H;w=H*r}i.style.cssText=`flex:none;width:${w}px;height:${h}px;align-self:center`;f.style.justifyContent='center'}))</script>
+<script>document.querySelectorAll('.slide').forEach(s=>{if(s.scrollHeight>s.clientHeight+1||s.scrollWidth>s.clientWidth+1)s.setAttribute('data-overflow','')})</script>
+</body></html>
