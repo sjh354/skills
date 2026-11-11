@@ -1,0 +1,5 @@
+{
+  "name": "sjh354-skills",
+  "interface": {"displayName": "sjh354 Skills"},
+  "plugins": [{"name": "planning", "source": {"source": "local", "path": "./plugins/planning"}, "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"}, "category": "Productivity"}]
+}
